@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ALPHA.Application.DTO\ALPHA.Application.DTO.csproj" />
+    <ProjectReference Include="..\ALPHA.Domain.Entity\ALPHA.Domain.Entity.csproj" />
+    <ProjectReference Include="..\ALPHA.Transversal.Common\ALPHA.Transversal.Common.csproj" />
+  </ItemGroup>
+
+</Project>
