@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using ALPHA.Application.DTO;
 using ALPHA.Application.Interface;
+using ALPHA.InfraStructure.DAL;
 using ALPHA.Services.WebAPIRest.Helpers;
 using ALPHA.Transversal.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 
@@ -17,25 +19,28 @@ namespace ALPHA.Services.WebAPIRest.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IUsuarioApplication _Application;
+        private readonly IUserApplication _Application;
         private readonly AppSettings _appSettings;
+        private readonly DbContextOptions<ALPHADataContext> options;
 
-        public AuthController(IUsuarioApplication Application,
-                                  IOptions<AppSettings> appSettings)
+        public AuthController(IUserApplication Application,
+                                IOptions<AppSettings> appSettings,
+                                DbContextOptions<ALPHADataContext> options)
         {
             _Application = Application;
             _appSettings = appSettings.Value;
+            this.options = options;
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertAsync(UsuarioDTO model)
+        public async Task<IActionResult> InsertAsync(UserDTO model)
         {
             Response<string> response = new Response<string>();
 
             try
             {
-                string password = Encrypt.GetSHA256(model.Clave);
-                model.Clave = password;
+                string password = Encrypt.GetSHA256(model.Password);
+                model.Password = password;
 
                 if (model == null)
                     return BadRequest();
@@ -61,7 +66,7 @@ namespace ALPHA.Services.WebAPIRest.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(UsuarioDTO model)
+        public async Task<IActionResult> UpdateAsync(UserDTO model)
         {
             Response<string> response = new Response<string>();
 
@@ -70,8 +75,8 @@ namespace ALPHA.Services.WebAPIRest.Controllers
                 if (model == null)
                     return BadRequest();
 
-                string password = Encrypt.GetSHA256(model.Clave);
-                model.Clave = password;
+                string password = Encrypt.GetSHA256(model.Password);
+                model.Password = password;
 
                 response = await _Application.UpdateAsync(model);
                 if (response.IsSuccess)
@@ -94,14 +99,14 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 
         }
 
-        [HttpDelete("{IdUsuario}")]
-        public async Task<IActionResult> DeleteAsync(int IdUsuario)
+        [HttpDelete("{IdUser}")]
+        public async Task<IActionResult> DeleteAsync(int IdUser)
         {
             Response<string> response = new Response<string>();
 
             try
             {
-                response = await _Application.DeleteAsync(IdUsuario);
+                response = await _Application.DeleteAsync(IdUser);
 
                 if (response.IsSuccess)
                 {
@@ -125,7 +130,7 @@ namespace ALPHA.Services.WebAPIRest.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            Response<IEnumerable<UsuarioDTO>> response = new Response<IEnumerable<UsuarioDTO>>();
+            Response<IEnumerable<UserDTO>> response = new Response<IEnumerable<UserDTO>>();
 
             try
             {
@@ -149,14 +154,14 @@ namespace ALPHA.Services.WebAPIRest.Controllers
             }
         }
 
-        [HttpGet("{IdUsuario}")]
-        public async Task<IActionResult> GetAsync(int IdUsuario)
+        [HttpGet("{IdUser}")]
+        public async Task<IActionResult> GetAsync(int IdUser)
         {
-            Response<UsuarioDTO> response = new Response<UsuarioDTO>();
+            Response<UserDTO> response = new Response<UserDTO>();
 
             try
             {
-                response = await _Application.GetAsync(IdUsuario);
+                response = await _Application.GetAsync(IdUser);
                 if (response.IsSuccess)
                 {
                     return Ok(response);
@@ -177,15 +182,15 @@ namespace ALPHA.Services.WebAPIRest.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> getLogin(UsuarioDTO model)
+        public async Task<IActionResult> getLogin(UserDTO model)
         {
-            Response<UsuarioDTO> response = new Response<UsuarioDTO>();
+            Response<UserDTO> response = new Response<UserDTO>();
             Token token = new Token();
 
             try
             {
-                string password = Encrypt.GetSHA256(model.Clave);
-                model.Clave = password;
+                string password = Encrypt.GetSHA256(model.Password);
+                model.Password = password;
 
                 if (model == null)
                     return BadRequest();

@@ -32,7 +32,7 @@ namespace ALPHA.Application.Main
             {
                 var resp = _mapper.Map<User>(model);
                 response.Data = await _Domain.InsertAsync(resp);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
                     response.Message = "Se ha registrado el User exitosamente.";
@@ -60,7 +60,7 @@ namespace ALPHA.Application.Main
             {
                 var resp = _mapper.Map<User>(model);
                 response.Data = await _Domain.UpdateAsync(resp);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
                     response.Message = "Se ha actualizado el User exitosamente.";
@@ -87,7 +87,7 @@ namespace ALPHA.Application.Main
             try
             {
                 response.Data = await _Domain.DeleteAsync(Id);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
                     response.Message = "Se ha borrado el registro exitosamente.";

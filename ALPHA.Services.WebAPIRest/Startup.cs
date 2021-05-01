@@ -84,9 +84,9 @@ namespace ALPHA.Services.WebAPIRest
 
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
 
-            //services.AddScoped<IClienteApplication, ClienteApplication>();
-            //services.AddScoped<IClienteDomain, ClienteDomain>();
-            //services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IUserApplication, UserApplication>();
+            services.AddScoped<IUserDomain, UserDomain>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             //services.AddScoped<IMesaApplication, MesaApplication>();
             //services.AddScoped<IMesaDomain, MesaDomain>();
