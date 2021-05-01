@@ -13,20 +13,20 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CocineroController : Controller
+    public class CorrespondencesController : Controller
     {
-        private readonly ICocineroApplication _CocineroApplication;
+        private readonly ICorrespondenceApplication _CorrespondenceApplication;
         private readonly AppSettings _appSettings;
 
-        public CocineroController(ICocineroApplication CocineroApplication,
+        public CorrespondencesController(ICorrespondenceApplication CorrespondenceApplication,
                                   IOptions<AppSettings> appSettings)
         {
-            _CocineroApplication = CocineroApplication;
+            _CorrespondenceApplication = CorrespondenceApplication;
             _appSettings = appSettings.Value;
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertAsync(CocineroDTO model)
+        public async Task<IActionResult> InsertAsync(CorrespondenceDTO model)
         {
             Response<string> response = new Response<string>();
 
@@ -35,7 +35,7 @@ namespace ALPHA.Services.WebAPIRest.Controllers
                 if (model == null)
                     return BadRequest();
 
-                response = await _CocineroApplication.InsertAsync(model);
+                response = await _CorrespondenceApplication.InsertAsync(model);
                 if (response.IsSuccess)
                 {
                     return Ok(response);
@@ -56,7 +56,7 @@ namespace ALPHA.Services.WebAPIRest.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(CocineroDTO model)
+        public async Task<IActionResult> UpdateAsync(CorrespondenceDTO model)
         {
             Response<string> response = new Response<string>();
 
@@ -65,7 +65,7 @@ namespace ALPHA.Services.WebAPIRest.Controllers
                 if (model == null)
                     return BadRequest();
 
-                response = await _CocineroApplication.UpdateAsync(model);
+                response = await _CorrespondenceApplication.UpdateAsync(model);
                 if (response.IsSuccess)
                 {
                     return Ok(response);
@@ -83,17 +83,17 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 
                 return BadRequest(response);
             }
-
+            
         }
 
-        [HttpDelete("{IdCocinero}")]
-        public async Task<IActionResult> DeleteAsync(int IdCocinero)
+        [HttpDelete("{IdCliente}")]
+        public async Task<IActionResult> DeleteAsync(int IdCliente)
         {
             Response<string> response = new Response<string>();
 
             try
             {
-                response = await _CocineroApplication.DeleteAsync(IdCocinero);
+                response = await _CorrespondenceApplication.DeleteAsync(IdCliente);
 
                 if (response.IsSuccess)
                 {
@@ -111,17 +111,17 @@ namespace ALPHA.Services.WebAPIRest.Controllers
                 response.Message = ex.Message;
 
                 return BadRequest(response);
-            }
+            }            
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            Response<IEnumerable<CocineroDTO>> response = new Response<IEnumerable<CocineroDTO>>();
+            Response<IEnumerable<CorrespondenceDTO>> response = new Response<IEnumerable<CorrespondenceDTO>>();
 
             try
             {
-                response = await _CocineroApplication.GetAllAsync();
+                response = await _CorrespondenceApplication.GetAllAsync();
                 if (response.IsSuccess)
                 {
                     return Ok(response);
@@ -141,14 +141,14 @@ namespace ALPHA.Services.WebAPIRest.Controllers
             }
         }
 
-        [HttpGet("{IdCocinero}")]
-        public async Task<IActionResult> GetAsync(int IdCocinero)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetAsync(int Id)
         {
-            Response<CocineroDTO> response = new Response<CocineroDTO>();
+            Response<CorrespondenceDTO> response = new Response<CorrespondenceDTO>();
 
             try
             {
-                response = await _CocineroApplication.GetAsync(IdCocinero);
+                response = await _CorrespondenceApplication.GetAsync(Id);
                 if (response.IsSuccess)
                 {
                     return Ok(response);

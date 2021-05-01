@@ -32,10 +32,10 @@ namespace ALPHA.Application.Main
             {
                 var resp = _mapper.Map<Correspondence>(model);
                 response.Data = await _CorrespondencesDomain.InsertAsync(resp);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
-                    response.Message = "Se ha registrado el Correspondence exitosamente.";
+                    response.Message = "Se ha registrado la Correspondencia exitosamente.";
                 }
                 else
                 {
@@ -60,10 +60,10 @@ namespace ALPHA.Application.Main
             {
                 var resp = _mapper.Map<Correspondence>(model);
                 response.Data = await _CorrespondencesDomain.UpdateAsync(resp);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
-                    response.Message = "Se ha actualizado el Correspondence exitosamente.";
+                    response.Message = "Se ha actualizado el Correspondencia exitosamente.";
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace ALPHA.Application.Main
             try
             {
                 response.Data = await _CorrespondencesDomain.DeleteAsync(Id);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
                     response.Message = "Se ha borrado el registro exitosamente.";

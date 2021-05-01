@@ -30,7 +30,7 @@ namespace ALPHA.InfraStructure.Data
             {
                 var sqlConnection = new SqlConnection();
                 if (sqlConnection == null) return null;
-                sqlConnection.ConnectionString = _configuration.GetConnectionString("MyStringConnection");
+                sqlConnection.ConnectionString = _configuration.GetConnectionString("ConnectionString");
                 sqlConnection.Open();
                 return sqlConnection;
             }

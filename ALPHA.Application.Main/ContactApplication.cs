@@ -32,7 +32,7 @@ namespace ALPHA.Application.Main
             {
                 var resp = _mapper.Map<Contact>(model);
                 response.Data = await _ContactsDomain.InsertAsync(resp);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
                     response.Message = "Se ha registrado el Contact exitosamente.";
@@ -60,7 +60,7 @@ namespace ALPHA.Application.Main
             {
                 var resp = _mapper.Map<Contact>(model);
                 response.Data = await _ContactsDomain.UpdateAsync(resp);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
                     response.Message = "Se ha actualizado el Contact exitosamente.";
@@ -87,7 +87,7 @@ namespace ALPHA.Application.Main
             try
             {
                 response.Data = await _ContactsDomain.DeleteAsync(Id);
-                if (response.Data == "success")
+                if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
                     response.Message = "Se ha borrado el registro exitosamente.";

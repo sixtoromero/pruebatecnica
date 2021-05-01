@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\CamareroController.cs" />
-    <Compile Remove="Controllers\ClienteController.cs" />
     <Compile Remove="Controllers\CocineroController.cs" />
     <Compile Remove="Controllers\FacturaController.cs" />
     <Compile Remove="Controllers\MesaController.cs" />

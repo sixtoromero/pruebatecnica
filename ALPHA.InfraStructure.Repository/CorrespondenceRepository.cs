@@ -33,7 +33,6 @@ namespace ALPHA.InfraStructure.Repository
                 parameters.Add("AddresseeId", model.AddresseeId);
                 parameters.Add("Subject", model.Subject);
                 parameters.Add("Body", model.Body);
-                parameters.Add("Date", model.UserId);
                 parameters.Add("UserId", model.UserId);
 
                 var result = await connection.QuerySingleAsync<string>(query, param: parameters, commandType: CommandType.StoredProcedure);
@@ -46,7 +45,7 @@ namespace ALPHA.InfraStructure.Repository
         {
             using (var connection = _connectionFactory.GetConnection)
             {
-                var query = "uspCorrespondenceUpdate";
+                var query = "uspCorrespondencesUpdate";
                 var parameters = new DynamicParameters();
 
                 parameters.Add("Id", model.Id);                
@@ -67,7 +66,7 @@ namespace ALPHA.InfraStructure.Repository
         {
             using (var connection = _connectionFactory.GetConnection)
             {
-                var query = "uspCorrespondenceDelete";
+                var query = "uspCorrespondencesDelete";
                 var parameters = new DynamicParameters();
 
                 parameters.Add("Id", Id);

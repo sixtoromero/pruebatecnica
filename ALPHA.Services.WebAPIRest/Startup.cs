@@ -88,31 +88,9 @@ namespace ALPHA.Services.WebAPIRest
             services.AddScoped<IUserDomain, UserDomain>();
             services.AddScoped<IUserRepository, UserRepository>();
 
-            //services.AddScoped<IMesaApplication, MesaApplication>();
-            //services.AddScoped<IMesaDomain, MesaDomain>();
-            //services.AddScoped<IMesaRepository, MesaRepository>();
-
-            //services.AddScoped<ICamareroApplication, CamareroApplication>();
-            //services.AddScoped<ICamareroDomain, CamareroDomain>();
-            //services.AddScoped<ICamareroRepository, CamareroRepository>();
-
-            //services.AddScoped<ICocineroApplication, CocineroApplication>();
-            //services.AddScoped<ICocineroDomain, CocineroDomain>();
-            //services.AddScoped<ICocineroRepository, CocineroRepository>();
-
-            //services.AddScoped<IFacturaApplication, FacturaApplication>();
-            //services.AddScoped<IFacturaDomain, FacturaDomain>();
-            //services.AddScoped<IFacturaRepository, FacturaRepository>();
-
-            //services.AddScoped<IUsuarioApplication, UsuarioApplication>();
-            //services.AddScoped<IUsuarioDomain, UsuarioDomain>();
-            //services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
-            //services.AddScoped<IViewFacturaApplication, ViewFacturaApplication>();
-            //services.AddScoped<IViewFacturaDomain, ViewFacturaDomain>();
-            //services.AddScoped<IViewFacturaRepository, ViewFacturaRepository>();
-
-
+            services.AddScoped<ICorrespondenceApplication, CorrespondenceApplication>();
+            services.AddScoped<ICorrespondenceDomain, CorrespondenceDomain>();
+            services.AddScoped<ICorrespondenceRepository, CorrespondenceRepository>();
 
             #endregion
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
