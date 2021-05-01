@@ -56,6 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{648E
 		Scripts\uspCorrespondencesUpdate.sql = Scripts\uspCorrespondencesUpdate.sql
 		Scripts\UspgetCorrespondenceByID.sql = Scripts\UspgetCorrespondenceByID.sql
 		Scripts\UspgetCorrespondences.sql = Scripts\UspgetCorrespondences.sql
+		Scripts\UspgetCorrespondencesByUserId.sql = Scripts\UspgetCorrespondencesByUserId.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALPHA.InfraStructure.DAL", "ALPHA.InfraStructure.DAL\ALPHA.InfraStructure.DAL.csproj", "{15379A52-735D-45BC-B557-C88812EF7B0F}"
