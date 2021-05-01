@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ALPHA.InfraStructure.DAL.Migrations
 {
     [DbContext(typeof(ALPHADataContext))]
-    [Migration("20210501000746_initial")]
+    [Migration("20210501070501_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

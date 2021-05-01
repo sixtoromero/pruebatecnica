@@ -18,8 +18,6 @@ namespace ALPHA.InfraStructure.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Rol> Roles { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
-        public DbSet<RolPermission> RolPermissions { get; set; }
         public DbSet<Correspondence> Correspondences { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }      
 

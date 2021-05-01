@@ -16,5 +16,8 @@ namespace ALPHA.Application.DTO
         public bool Ready { get; set; }
         public DateTime Date { get; set; }
         public int UserId { get; set; }
+        
+        public string Sender { get; set; }        
+        public string Addressee { get; set; }
     }
 }

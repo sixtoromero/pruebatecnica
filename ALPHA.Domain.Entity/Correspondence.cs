@@ -39,6 +39,11 @@ namespace ALPHA.Domain.Entity
         public DateTime Date { get; set; }
         [Required]
         public int UserId { get; set; }
-        //public int CreateUser { get; set; }
+
+        [NotMapped]
+        public string Sender { get; set; }
+        [NotMapped]
+        public string Addressee { get; set; }
+
     }
 }

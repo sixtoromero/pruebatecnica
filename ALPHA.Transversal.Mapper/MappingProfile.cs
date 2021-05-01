@@ -15,6 +15,7 @@ namespace ALPHA.Transversal.Mapper
             CreateMap<Contact, ContactDTO>().ReverseMap();
             CreateMap<Correspondence, CorrespondenceDTO>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Rol, RolDTO>().ReverseMap();
         }
     }
 }

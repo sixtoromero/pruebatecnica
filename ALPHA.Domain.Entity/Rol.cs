@@ -10,7 +10,6 @@ namespace ALPHA.Domain.Entity
         public int Id { get; set; }
         [Required]
         [MaxLength(50)]
-        public string RolName { get; set; }
-        public List<RolPermission> RolPermissions { get; set; }
+        public string RolName { get; set; }        
     }
 }

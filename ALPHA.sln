@@ -42,8 +42,23 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALPHA.Services.WebAPIRest", "ALPHA.Services.WebAPIRest\ALPHA.Services.WebAPIRest.csproj", "{D135B35F-5353-4970-AB6E-D48983C37025}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{648E11E6-D270-45A8-80C4-6B5536DCE239}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\SEQUENCE.sql = Scripts\SEQUENCE.sql
+		Scripts\TR_ContacByCorrespondencesInsert.sql = Scripts\TR_ContacByCorrespondencesInsert.sql
+		Scripts\TR_ContacByCorrespondencesUpdate.sql = Scripts\TR_ContacByCorrespondencesUpdate.sql
+		Scripts\TR_LogCorrespondencesDelete.sql = Scripts\TR_LogCorrespondencesDelete.sql
+		Scripts\TR_LogCorrespondencesInsert.sql = Scripts\TR_LogCorrespondencesInsert.sql
+		Scripts\TR_LogCorrespondencesUpdate.sql = Scripts\TR_LogCorrespondencesUpdate.sql
+		Scripts\TR_LogUserInsert.sql = Scripts\TR_LogUserInsert.sql
+		Scripts\TR_LogUserUpdate.sql = Scripts\TR_LogUserUpdate.sql
+		Scripts\uspCorrespondencesDelete.sql = Scripts\uspCorrespondencesDelete.sql
+		Scripts\uspCorrespondencesInsert.sql = Scripts\uspCorrespondencesInsert.sql
+		Scripts\uspCorrespondencesUpdate.sql = Scripts\uspCorrespondencesUpdate.sql
+		Scripts\UspgetCorrespondenceByID.sql = Scripts\UspgetCorrespondenceByID.sql
+		Scripts\UspgetCorrespondences.sql = Scripts\UspgetCorrespondences.sql
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALPHA.InfraStructure.DAL", "ALPHA.InfraStructure.DAL\ALPHA.InfraStructure.DAL.csproj", "{15379A52-735D-45BC-B557-C88812EF7B0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALPHA.InfraStructure.DAL", "ALPHA.InfraStructure.DAL\ALPHA.InfraStructure.DAL.csproj", "{15379A52-735D-45BC-B557-C88812EF7B0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

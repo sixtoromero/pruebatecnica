@@ -134,6 +134,33 @@ namespace ALPHA.Application.Main
             return response;
         }
 
+        public async Task<Response<IEnumerable<CorrespondenceDTO>>> GetAsyncByUserId(int UserId)
+        {
+            var response = new Response<IEnumerable<CorrespondenceDTO>>();
+            try
+            {
+                var resp = await _CorrespondencesDomain.GetAsyncByUserId(UserId);
+
+                response.Data = _mapper.Map<IEnumerable<CorrespondenceDTO>>(resp);
+                if (response.Data != null)
+                {
+                    response.IsSuccess = true;
+                    response.Message = string.Empty;
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Ha ocurrido un error consultando los registros.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }       
+
         public async Task<Response<CorrespondenceDTO>> GetAsync(int? Id)
         {
             var response = new Response<CorrespondenceDTO>();
@@ -159,6 +186,6 @@ namespace ALPHA.Application.Main
             }
 
             return response;
-        }
+        }        
     }
 }

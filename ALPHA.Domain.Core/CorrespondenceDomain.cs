@@ -40,6 +40,11 @@ namespace ALPHA.Domain.Core
             return await _Repository.GetAllAsync();
         }
 
+        public async Task<IEnumerable<Correspondence>> GetAsyncByUserId(int UserId)
+        {
+            return await _Repository.GetAsyncByUserId(UserId);
+        }
+
         public async Task<Correspondence> GetAsync(int? Id)
         {
             return await _Repository.GetAsync(Id);

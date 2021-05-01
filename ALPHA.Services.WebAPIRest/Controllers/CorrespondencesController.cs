@@ -141,6 +141,34 @@ namespace ALPHA.Services.WebAPIRest.Controllers
             }
         }
 
+
+        [HttpGet("{UserId}")]
+        public async Task<IActionResult> GetAsyncByUserId(int UserId)
+        {
+            Response<CorrespondenceDTO> response = new Response<CorrespondenceDTO>();
+
+            try
+            {
+                response = await _CorrespondenceApplication.GetAsync(UserId);
+                if (response.IsSuccess)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+
+                return BadRequest(response);
+            }
+        }
+
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetAsync(int Id)
         {

@@ -36,7 +36,7 @@ namespace ALPHA.Domain.Entity
 
         public List<Contact> Contacts { get; set; }
         public List<Correspondence> Correspondences { get; set; }
-        public Rol Roles { get; set; }
+        public Rol Roles { get; set; }        
 
     }
 }

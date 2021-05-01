@@ -88,6 +88,19 @@ namespace ALPHA.InfraStructure.Repository
             }
         }
 
+        public async Task<IEnumerable<Correspondence>> GetAsyncByUserId(int UserId)
+        {
+            using (var connection = _connectionFactory.GetConnection)
+            {
+                var query = "UspgetCorrespondencesByUserId";
+                var parameters = new DynamicParameters();
+                parameters.Add("UserId", UserId);
+                var result = await connection.QueryAsync<Correspondence>(query, commandType: CommandType.StoredProcedure);
+
+                return result;
+            }
+        }
+
         public async Task<Correspondence> GetAsync(int? Id)
         {
             using (var connection = _connectionFactory.GetConnection)
