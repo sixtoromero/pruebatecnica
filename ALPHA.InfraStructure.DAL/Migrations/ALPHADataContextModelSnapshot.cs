@@ -82,7 +82,9 @@ namespace ALPHA.InfraStructure.DAL.Migrations
             modelBuilder.Entity("ALPHA.Domain.Entity.Correspondence", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Consecutive")
                         .HasMaxLength(10)

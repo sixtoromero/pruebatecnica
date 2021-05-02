@@ -89,7 +89,8 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 name: "Correspondences",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Consecutive = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Type = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     SenderId = table.Column<int>(type: "int", nullable: false),

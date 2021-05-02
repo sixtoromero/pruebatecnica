@@ -8,6 +8,8 @@ namespace ALPHA.Domain.Entity
 {
     public class Correspondence
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         [MaxLength(10)]

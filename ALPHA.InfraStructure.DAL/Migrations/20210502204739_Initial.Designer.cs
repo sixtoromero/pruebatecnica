@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ALPHA.InfraStructure.DAL.Migrations
 {
     [DbContext(typeof(ALPHADataContext))]
-    [Migration("20210502202900_Initial")]
+    [Migration("20210502204739_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,7 +84,9 @@ namespace ALPHA.InfraStructure.DAL.Migrations
             modelBuilder.Entity("ALPHA.Domain.Entity.Correspondence", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Consecutive")
                         .HasMaxLength(10)

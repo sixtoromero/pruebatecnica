@@ -70,8 +70,6 @@ namespace ALPHA.InfraStructure.DAL
             //Especificando una llave primaria compuesta
             modelBuilder.Entity<Correspondence>().HasKey(x => new { x.Id, x.Consecutive });
 
-
-
         }
 
     }

@@ -33,7 +33,6 @@ namespace ALPHA.Domain.Entity
         public int RolId { get; set; }
         [Required]
         public DateTime Date { get; set; }
-
         public List<Contact> Contacts { get; set; }
         public List<Correspondence> Correspondences { get; set; }
         public Rol Roles { get; set; }        
