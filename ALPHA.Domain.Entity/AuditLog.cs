@@ -18,6 +18,7 @@ namespace ALPHA.Domain.Entity
         /// Se describe que tipo de acción se ejecutó en la tabla, (I = Insertar, U = Actualizar, E = Eliminar)
         /// </summary>
         [Required]
+        [MaxLength(1)]
         public string Action { get; set; }
         [Required]
         public string Data { get; set; }

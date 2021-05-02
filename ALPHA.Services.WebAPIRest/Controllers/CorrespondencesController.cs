@@ -86,14 +86,14 @@ namespace ALPHA.Services.WebAPIRest.Controllers
             
         }
 
-        [HttpDelete("{IdCliente}")]
-        public async Task<IActionResult> DeleteAsync(int IdCliente)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteAsync(int Id)
         {
             Response<string> response = new Response<string>();
 
             try
             {
-                response = await _CorrespondenceApplication.DeleteAsync(IdCliente);
+                response = await _CorrespondenceApplication.DeleteAsync(Id);
 
                 if (response.IsSuccess)
                 {
@@ -144,12 +144,12 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 
         [HttpGet("{UserId}")]
         public async Task<IActionResult> GetAsyncByUserId(int UserId)
-        {
-            Response<CorrespondenceDTO> response = new Response<CorrespondenceDTO>();
+        {            
+            Response<IEnumerable<CorrespondenceDTO>> response = new Response<IEnumerable<CorrespondenceDTO>>();
 
             try
             {
-                response = await _CorrespondenceApplication.GetAsync(UserId);
+                response = await _CorrespondenceApplication.GetAsyncByUserId(UserId);
                 if (response.IsSuccess)
                 {
                     return Ok(response);
@@ -194,6 +194,6 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 
                 return BadRequest(response);
             }
-        }
+        }        
     }
 }

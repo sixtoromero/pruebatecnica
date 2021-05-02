@@ -94,8 +94,8 @@ namespace ALPHA.InfraStructure.Repository
             {
                 var query = "UspgetCorrespondencesByUserId";
                 var parameters = new DynamicParameters();
-                parameters.Add("UserId", UserId);
-                var result = await connection.QueryAsync<Correspondence>(query, commandType: CommandType.StoredProcedure);
+                parameters.Add("UserId", UserId);                
+                var result = await connection.QueryAsync<Correspondence>(query, param: parameters, commandType: CommandType.StoredProcedure);
 
                 return result;
             }
