@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ALPHA.InfraStructure.DAL.Migrations
 {
     [DbContext(typeof(ALPHADataContext))]
-    [Migration("20210501070501_initial")]
-    partial class initial
+    [Migration("20210502202900_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,7 +30,8 @@ namespace ALPHA.InfraStructure.DAL.Migrations
 
                     b.Property<string>("Action")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Data")
                         .IsRequired()
@@ -83,9 +84,11 @@ namespace ALPHA.InfraStructure.DAL.Migrations
             modelBuilder.Entity("ALPHA.Domain.Entity.Correspondence", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    b.Property<string>("Consecutive")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("AddresseeId")
                         .HasColumnType("int");
@@ -93,11 +96,6 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Consecutive")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -121,28 +119,13 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "Consecutive");
+
+                    b.HasIndex("Subject");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Correspondences");
-                });
-
-            modelBuilder.Entity("ALPHA.Domain.Entity.Permission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("PermissionName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("ALPHA.Domain.Entity.Rol", b =>
@@ -160,28 +143,23 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-                });
 
-            modelBuilder.Entity("ALPHA.Domain.Entity.RolPermission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RolId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PermissionId");
-
-                    b.HasIndex("RolId");
-
-                    b.ToTable("RolPermissions");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            RolName = "Administrador"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RolName = "Gestor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RolName = "Destinatario"
+                        });
                 });
 
             modelBuilder.Entity("ALPHA.Domain.Entity.User", b =>
@@ -231,7 +209,23 @@ namespace ALPHA.InfraStructure.DAL.Migrations
 
                     b.HasIndex("RolId");
 
+                    b.HasIndex("Username");
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sixto.jose@gmail.com",
+                            Names = "Sixto José",
+                            Password = "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+                            RolId = 1,
+                            Status = "A",
+                            Surnames = "Romero Martínez",
+                            Username = "sixto.romero"
+                        });
                 });
 
             modelBuilder.Entity("ALPHA.Domain.Entity.Contact", b =>
@@ -252,21 +246,6 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ALPHA.Domain.Entity.RolPermission", b =>
-                {
-                    b.HasOne("ALPHA.Domain.Entity.Permission", null)
-                        .WithMany("RolPermissions")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ALPHA.Domain.Entity.Rol", null)
-                        .WithMany("RolPermissions")
-                        .HasForeignKey("RolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ALPHA.Domain.Entity.User", b =>
                 {
                     b.HasOne("ALPHA.Domain.Entity.Rol", "Roles")
@@ -276,16 +255,6 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("ALPHA.Domain.Entity.Permission", b =>
-                {
-                    b.Navigation("RolPermissions");
-                });
-
-            modelBuilder.Entity("ALPHA.Domain.Entity.Rol", b =>
-                {
-                    b.Navigation("RolPermissions");
                 });
 
             modelBuilder.Entity("ALPHA.Domain.Entity.User", b =>

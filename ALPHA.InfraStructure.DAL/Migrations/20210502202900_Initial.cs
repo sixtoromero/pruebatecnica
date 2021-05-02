@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ALPHA.InfraStructure.DAL.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TableName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     RegisterId = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Action = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
@@ -23,19 +23,6 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuditLogs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Permissions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PermissionName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Permissions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,32 +36,6 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RolPermissions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RolId = table.Column<int>(type: "int", nullable: false),
-                    PermissionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RolPermissions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RolPermissions_Permissions_PermissionId",
-                        column: x => x.PermissionId,
-                        principalTable: "Permissions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RolPermissions_Roles_RolId",
-                        column: x => x.RolId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,8 +89,7 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 name: "Correspondences",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Consecutive = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Type = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     SenderId = table.Column<int>(type: "int", nullable: false),
@@ -142,7 +102,7 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Correspondences", x => x.Id);
+                    table.PrimaryKey("PK_Correspondences", x => new { x.Id, x.Consecutive });
                     table.ForeignKey(
                         name: "FK_Correspondences_Users_UserId",
                         column: x => x.UserId,
@@ -151,10 +111,35 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "RolName" },
+                values: new object[] { 1, "Administrador" });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "RolName" },
+                values: new object[] { 2, "Gestor" });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "RolName" },
+                values: new object[] { 3, "Destinatario" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Date", "Email", "Names", "Password", "RolId", "Status", "Surnames", "Username" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sixto.jose@gmail.com", "Sixto José", "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5", 1, "A", "Romero Martínez", "sixto.romero" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_UserId",
                 table: "Contacts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Correspondences_Subject",
+                table: "Correspondences",
+                column: "Subject");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Correspondences_UserId",
@@ -162,19 +147,14 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RolPermissions_PermissionId",
-                table: "RolPermissions",
-                column: "PermissionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RolPermissions_RolId",
-                table: "RolPermissions",
-                column: "RolId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_RolId",
                 table: "Users",
                 column: "RolId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -189,13 +169,7 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 name: "Correspondences");
 
             migrationBuilder.DropTable(
-                name: "RolPermissions");
-
-            migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Permissions");
 
             migrationBuilder.DropTable(
                 name: "Roles");
