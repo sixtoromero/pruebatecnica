@@ -1,8 +1,5 @@
 ﻿using ALPHA.Transversal.Common;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ALPHA.Transversal.Logging
 {

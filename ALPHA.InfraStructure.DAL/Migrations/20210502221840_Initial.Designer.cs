@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ALPHA.InfraStructure.DAL.Migrations
 {
     [DbContext(typeof(ALPHADataContext))]
-    [Migration("20210502204739_Initial")]
+    [Migration("20210502221840_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,6 +227,18 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                             Status = "A",
                             Surnames = "Romero Martínez",
                             Username = "sixto.romero"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "manuel.mejia@gmail.com",
+                            Names = "Manuel Antonio",
+                            Password = "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+                            RolId = 2,
+                            Status = "A",
+                            Surnames = "Mejía Gutierrez",
+                            Username = "manuel.mejia"
                         });
                 });
 

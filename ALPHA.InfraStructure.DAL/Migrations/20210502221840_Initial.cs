@@ -132,6 +132,11 @@ namespace ALPHA.InfraStructure.DAL.Migrations
                 columns: new[] { "Id", "Date", "Email", "Names", "Password", "RolId", "Status", "Surnames", "Username" },
                 values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sixto.jose@gmail.com", "Sixto José", "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5", 1, "A", "Romero Martínez", "sixto.romero" });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Date", "Email", "Names", "Password", "RolId", "Status", "Surnames", "Username" },
+                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "manuel.mejia@gmail.com", "Manuel Antonio", "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5", 2, "A", "Mejía Gutierrez", "manuel.mejia" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_UserId",
                 table: "Contacts",

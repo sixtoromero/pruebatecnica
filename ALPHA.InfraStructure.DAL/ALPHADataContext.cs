@@ -57,6 +57,18 @@ namespace ALPHA.InfraStructure.DAL
                     Status = "A",
                     RolId = 1,
                     Date = new DateTime()
+                },
+                new User
+                {
+                    Id = 2,
+                    Names = "Manuel Antonio",
+                    Surnames = "Mejía Gutierrez",
+                    Username = "manuel.mejia",
+                    Password = "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+                    Email = "manuel.mejia@gmail.com",
+                    Status = "A",
+                    RolId = 2,
+                    Date = new DateTime()
                 }
             );
 

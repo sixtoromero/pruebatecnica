@@ -41,12 +41,14 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error inesperado, por favor intente nuevamente";
+                    _logger.LogWarning("Ha ocurrido un error inesperado, por favor intente nuevamente " + response.Data);
                 }
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -69,12 +71,14 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error inesperado, por favor intente nuevamente";
+                    _logger.LogWarning("Ha ocurrido un error inesperado, por favor intente nuevamente " + response.Data);
                 }
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -96,12 +100,14 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error inesperado, por favor intente nuevamente";
+                    _logger.LogWarning("Ha ocurrido un error inesperado, por favor intente nuevamente " + response.Data);
                 }
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -124,11 +130,13 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error consultando los registros.";
+                    _logger.LogWarning("Ha ocurrido un error inesperado consultando");
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -151,11 +159,13 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error consultando los registros.";
+                    _logger.LogWarning("Ha ocurrido un error consultando los registros por Id.");
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -178,11 +188,13 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un inconveniente al consultar los registros.";
+                    _logger.LogWarning("Ha ocurrido un inconveniente al consultar los registros de Correspondencias");
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;

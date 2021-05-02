@@ -35,18 +35,20 @@ namespace ALPHA.Application.Main
                 if (response.Data == "Success")
                 {
                     response.IsSuccess = true;
-                    response.Message = "Se ha registrado el User exitosamente.";
+                    response.Message = "Se ha registrado el User exitosamente.";                    
                 }
                 else
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error inesperado, por favor intente nuevamente";
+                    _logger.LogWarning("Ha ocurrido un error inesperado registrando el usuario " + model.Username + ", (" + response.Data + ")");
                 }
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -69,12 +71,14 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error inesperado, por favor intente nuevamente";
+                    _logger.LogWarning("Ha ocurrido un error inesperado actualizando el usuario " + model.Username + ", (" + response.Data + ")");
                 }
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -96,12 +100,14 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error inesperado, por favor intente nuevamente";
+                    _logger.LogWarning("Ha ocurrido un error inesperado eliminando al usuario " + Id.ToString() + ", (" + response.Data + ")");
                 }
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -118,17 +124,19 @@ namespace ALPHA.Application.Main
                 if (response.Data != null)
                 {
                     response.IsSuccess = true;
-                    response.Message = string.Empty;
+                    response.Message = string.Empty;                    
                 }
                 else
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un error consultando los registros.";
+                    _logger.LogWarning("Ha ocurrido un error consultando los registros.");
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -151,11 +159,13 @@ namespace ALPHA.Application.Main
                 {
                     response.IsSuccess = false;
                     response.Message = "Ha ocurrido un inconveniente al consultar los registros.";
+                    _logger.LogWarning("Ha ocurrido un error consultando el registro con Id. " + Id.ToString());
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;
@@ -178,12 +188,14 @@ namespace ALPHA.Application.Main
                 else
                 {
                     response.IsSuccess = false;
-                    response.Message = "User o contraseña incorrecto";
+                    response.Message = "Usuario o contraseña incorrecta";
+                    _logger.LogWarning("Usuario o contraseña incorrecta (" + model.Username + ")");
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+                _logger.LogError(ex.Message);
             }
 
             return response;

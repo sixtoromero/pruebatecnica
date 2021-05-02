@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ALPHA.Transversal.Common
+﻿namespace ALPHA.Transversal.Common
 {
     public interface IAppLogger<T>
     {
