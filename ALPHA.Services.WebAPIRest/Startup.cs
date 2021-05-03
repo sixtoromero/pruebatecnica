@@ -28,6 +28,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using ALPHA.InfraStructure.DAL;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using ALPHA.Application.DTO;
+using ALPHA.Services.WebAPIRest.Validator;
 
 namespace ALPHA.Services.WebAPIRest
 {
@@ -120,6 +123,9 @@ namespace ALPHA.Services.WebAPIRest
                     ValidateAudience = false
                 };
             });
+
+            services.AddTransient<IValidator<UserDTO>, UserDTOValidator>();
+            services.AddTransient<IValidator<CorrespondenceDTO>, CorrespondenceDTOValidator>();
 
         }
 

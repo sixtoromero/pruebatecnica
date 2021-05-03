@@ -15,6 +15,7 @@ namespace ALPHA.Application.DTO
         public string Status { get; set; }
         public int RolId { get; set; }
         public DateTime Date { get; set; }
+
         public string Token { get; set; }
 
         public List<ContactDTO> Contacts { get; set; }

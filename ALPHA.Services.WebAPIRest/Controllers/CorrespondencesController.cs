@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ALPHA.Application.DTO;
 using ALPHA.Application.Interface;
 using ALPHA.Transversal.Common;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -17,12 +18,15 @@ namespace ALPHA.Services.WebAPIRest.Controllers
     {
         private readonly ICorrespondenceApplication _CorrespondenceApplication;
         private readonly AppSettings _appSettings;
+        private readonly IValidator<CorrespondenceDTO> _messageValidator;
 
         public CorrespondencesController(ICorrespondenceApplication CorrespondenceApplication,
-                                  IOptions<AppSettings> appSettings)
+                                IValidator<CorrespondenceDTO> messageValidator,
+                                IOptions<AppSettings> appSettings)
         {
             _CorrespondenceApplication = CorrespondenceApplication;
             _appSettings = appSettings.Value;
+            _messageValidator = messageValidator;
         }
 
         [HttpPost]
@@ -32,8 +36,25 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 
             try
             {
+                #region Validaciones
+                var validResult = _messageValidator.Validate(model);
+                if (!validResult.IsValid)
+                {
+                    response.Data = string.Empty;
+
+                    foreach (var error in validResult.Errors)
+                    {
+                        response.Data = error.ToString() + "|" + response.Data;
+                    }
+
+                    response.Data = response.Data.Substring(0, response.Data.Length - 1);
+                    response.IsSuccess = false;
+                    return BadRequest(response);
+                }
+                #endregion
+
                 if (model == null)
-                    return BadRequest();
+                    return BadRequest();                
 
                 response = await _CorrespondenceApplication.InsertAsync(model);
                 if (response.IsSuccess)
@@ -62,6 +83,24 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 
             try
             {
+
+                #region Validaciones
+                var validResult = _messageValidator.Validate(model);
+                if (!validResult.IsValid)
+                {
+                    response.Data = string.Empty;
+
+                    foreach (var error in validResult.Errors)
+                    {
+                        response.Data = error.ToString() + "|" + response.Data;
+                    }
+
+                    response.Data = response.Data.Substring(0, response.Data.Length - 1);
+                    response.IsSuccess = false;
+                    return BadRequest(response);
+                }
+                #endregion
+
                 if (model == null)
                     return BadRequest();
 

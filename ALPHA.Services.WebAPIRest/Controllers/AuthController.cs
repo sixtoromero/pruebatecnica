@@ -6,7 +6,9 @@ using ALPHA.Application.DTO;
 using ALPHA.Application.Interface;
 using ALPHA.InfraStructure.DAL;
 using ALPHA.Services.WebAPIRest.Helpers;
+using ALPHA.Services.WebAPIRest.Validator;
 using ALPHA.Transversal.Common;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,13 +24,16 @@ namespace ALPHA.Services.WebAPIRest.Controllers
         private readonly IUserApplication _Application;
         private readonly AppSettings _appSettings;
         private readonly DbContextOptions<ALPHADataContext> options;
+        private readonly IValidator<UserDTO> _userValidator;
 
         public AuthController(IUserApplication Application,
                                 IOptions<AppSettings> appSettings,
+                                IValidator<UserDTO> userValidator,
                                 DbContextOptions<ALPHADataContext> options)
         {
             _Application = Application;
             _appSettings = appSettings.Value;
+            _userValidator = userValidator;
             this.options = options;
         }
 
@@ -39,6 +44,23 @@ namespace ALPHA.Services.WebAPIRest.Controllers
 
             try
             {
+                #region Validaciones
+                var validResult = _userValidator.Validate(model);
+                if (!validResult.IsValid)
+                {
+                    response.Data = string.Empty;
+
+                    foreach (var error in validResult.Errors)
+                    {
+                        response.Data = error.ToString() + "|" + response.Data;
+                    }
+
+                    response.Data = response.Data.Substring(0, response.Data.Length - 1);
+                    response.IsSuccess = false;
+                    return BadRequest(response);
+                }
+                #endregion
+
                 string password = Encrypt.GetSHA256(model.Password);
                 model.Password = password;
 
@@ -68,12 +90,31 @@ namespace ALPHA.Services.WebAPIRest.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(UserDTO model)
         {
+
             Response<string> response = new Response<string>();
 
             try
             {
                 if (model == null)
                     return BadRequest();
+
+
+                #region Validaciones
+                var validResult = _userValidator.Validate(model);
+                if (!validResult.IsValid)
+                {
+                    response.Data = string.Empty;
+
+                    foreach (var error in validResult.Errors)
+                    {
+                        response.Data = error.ToString() + "|" + response.Data;
+                    }
+
+                    response.Data = response.Data.Substring(0, response.Data.Length - 1);
+                    response.IsSuccess = false;
+                    return BadRequest(response);
+                }
+                #endregion
 
                 string password = Encrypt.GetSHA256(model.Password);
                 model.Password = password;
