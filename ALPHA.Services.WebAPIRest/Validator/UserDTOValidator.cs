@@ -16,7 +16,7 @@ namespace ALPHA.Services.WebAPIRest.Validator
             RuleFor(x => x.Username).NotEmpty().Length(3, 120)
                 .WithMessage("Por favor especifíque el nombre de usuario.");
 
-            RuleFor(x => x.Password).NotEmpty().MaximumLength(3)
+            RuleFor(x => x.Password).NotEmpty().MinimumLength(3)
                 .WithMessage("Por favor especifíque una contraseña.");
 
             RuleFor(x => x.Email).NotEmpty().Length(5, 150)
